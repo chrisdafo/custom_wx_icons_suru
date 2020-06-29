@@ -23,9 +23,11 @@
 #
 
 # 3rd party
+from typing import Optional, Any, Union, Tuple
+import wx  # type: ignore
 import importlib_resources  # type: ignore
 from wx_icons_humanity import HumanityIconTheme, wxHumanityIconTheme  # type: ignore  # TODO
-
+from wx_icons_hicolor import Icon
 # this package
 from wx_icons_suru import Suru
 
@@ -90,10 +92,10 @@ class wxSuruIconTheme(wxHumanityIconTheme):
 	_suru_theme = SuruIconTheme.create()
 
 	def CreateBitmap(self, id: Any, client: Any, size: Union[Tuple[int], wx.Size]) -> wx.Bitmap:
-		icon = self._suru_theme.find_icon(id, size.x, None)
+		icon = self._suru_theme.find_icon(id, size[0], None)
 		if icon:
 			print(icon, icon.path)
-			return self.icon2bitmap(icon, size.x)
+			return self.icon2bitmap(icon, size[0])
 		else:
 			# return self._humanity_theme.find_icon("image-missing", size.x, None).as_bitmap()
 			print("Icon not found in Suru theme")
@@ -109,7 +111,7 @@ if __name__ == '__main__':
 	# 	print(directory.icons)
 
 	# 3rd party
-	from wx_icons_hicolor import test, test_random_icons  # type: ignore  # TODO
+	from wx_icons_hicolor import test, test_random_icons, Icon  # type: ignore  # TODO
 
 	# test_random_icons(theme)
 	test.test_icon_theme(theme, show_success=False)
